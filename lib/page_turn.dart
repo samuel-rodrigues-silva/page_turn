@@ -141,12 +141,16 @@ class PageTurnState extends State<PageTurn> with TickerProviderStateMixin {
   }
 
   Future previousPage() async {
-    print('Previous Page..');
-    await _controllers[pageNumber - 1].forward();
-    if (mounted)
-      setState(() {
-        pageNumber--;
-      });
+    if (pageNumber > 0) {
+      print('Previous Page..');
+      await _controllers[pageNumber - 1].forward();
+      if (mounted)
+        setState(() {
+          pageNumber--;
+        });
+    } else {
+      print('No more pages back');
+    }
   }
 
   Future goToPage(int index) async {
